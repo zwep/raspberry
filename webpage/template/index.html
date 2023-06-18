@@ -24,29 +24,11 @@
       // Parse the data rows
       for (let i = 1; i < rows.length; i++) {
         const rowData = rows[i].split(',');
-        // Parse 1 differently...
-        if (i === 1) {
-          // Create a new JavaScript Date object based on the timestamp
-          var unix_timestamp = rowData[1]
-          // multiplied by 1000 so that the argument is in milliseconds, not seconds.
-          var date = new Date(unix_timestamp * 1000);
-          // Hours part from the timestamp
-          var hours = date.getHours();
-          // Minutes part from the timestamp
-          var minutes = "0" + date.getMinutes();
-          // Seconds part from the timestamp
-          var seconds = "0" + date.getSeconds();
 
-          // Will display time in 10:30:23 format
-          var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-          datasets[0].data.push(formattedTime);
-        } else {
-            // Starting at 2, since we already parsed number 1...
-            for (let j = 2; j < rowData.length; j++) {
-              datasets[j - 1].data.push(parseFloat(rowData[j]));
-            }
-          }
+        for (let j = 1; j < rowData.length; j++) {
+          datasets[j - 1].data.push(parseFloat(rowData[j]));
         }
+      }
 
       // Create chart using Chart.js
       const ctx = document.getElementById('chart').getContext('2d');
@@ -69,25 +51,6 @@
       .then(response => response.text())
       .then(csvData => visualizeCSV(csvData))
       .catch(error => console.error('Error:', error));
-    // Read and process the CSV file
-    // function handleFileSelect(event) {
-    //   const file = event.target.files[0];
-    //   const reader = new FileReader();
-    //
-    //   reader.onload = function(event) {
-    //     const csvData = event.target.result;
-    //     visualizeCSV(csvData);
-    //   };
-    //
-    //   reader.readAsText(file);
-    // }
-    //
-    // // Attach event listener to file input
-    // const fileInput = document.createElement('input');
-    // fileInput.type = 'file';
-    // fileInput.accept = '.csv';
-    // fileInput.addEventListener('change', handleFileSelect);
-    // document.body.appendChild(fileInput);
   </script>
 </body>
 </html>
