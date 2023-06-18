@@ -13,7 +13,7 @@ def serve_csv():
 
 @app.route("/")
 def hello():
-   file_to_csv = os.path.expanduser('~/data/arduino/remote_sensor.csv')
+   file_to_csv = os.path.expanduser('http://localhost:8000/data/arduino/remote_sensor.csv')
    return render_template('index.html', file_to_csv=file_to_csv)
 
 
