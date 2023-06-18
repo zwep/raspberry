@@ -9,7 +9,8 @@ CORS(app, origins='http://localhost:8000')
 
 @app.route('/data/arduino/remote_sensor.csv')
 def serve_csv():
-    csv_path = './data/arduino/remote_sensor.csv'  # Replace with the actual path to your CSV file
+    csv_path = '~/data/arduino/remote_sensor.csv'  # Replace with the actual path to your CSV file
+    csv_path = os.path.expanduser(csv_path)
     return send_file(csv_path, mimetype='text/csv')
 
 
