@@ -47,26 +47,29 @@
         },
       });
     }
-
+    fetch( '{{ file_to_csv }}')
+      .then(response => response.text())
+      .then(csvData => visualizeCSV(csvData))
+      .catch(error => console.error('Error:', error));
     // Read and process the CSV file
-    function handleFileSelect(event) {
-      const file = event.target.files[0];
-      const reader = new FileReader();
-
-      reader.onload = function(event) {
-        const csvData = event.target.result;
-        visualizeCSV(csvData);
-      };
-
-      reader.readAsText(file);
-    }
-
-    // Attach event listener to file input
-    const fileInput = document.createElement('input');
-    fileInput.type = 'file';
-    fileInput.accept = '.csv';
-    fileInput.addEventListener('change', handleFileSelect);
-    document.body.appendChild(fileInput);
+    // function handleFileSelect(event) {
+    //   const file = event.target.files[0];
+    //   const reader = new FileReader();
+    //
+    //   reader.onload = function(event) {
+    //     const csvData = event.target.result;
+    //     visualizeCSV(csvData);
+    //   };
+    //
+    //   reader.readAsText(file);
+    // }
+    //
+    // // Attach event listener to file input
+    // const fileInput = document.createElement('input');
+    // fileInput.type = 'file';
+    // fileInput.accept = '.csv';
+    // fileInput.addEventListener('change', handleFileSelect);
+    // document.body.appendChild(fileInput);
   </script>
 </body>
 </html>
