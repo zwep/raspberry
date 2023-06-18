@@ -1,8 +1,15 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, send_file
 import os
 import datetime
 
 app = Flask(__name__, template_folder='template')
+
+
+@app.route('/data/arduino/remote_sensor.csv')
+def serve_csv():
+    csv_path = './data/arduino/remote_sensor.csv'  # Replace with the actual path to your CSV file
+    return send_file(csv_path, mimetype='text/csv')
+
 
 @app.route("/")
 def hello():
