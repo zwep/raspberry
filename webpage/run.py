@@ -4,7 +4,7 @@ import datetime
 from flask_cors import CORS
 
 app = Flask(__name__, template_folder='template')
-CORS(app)
+CORS(app, origins='http://localhost:8000')
 
 
 @app.route('/data/arduino/remote_sensor.csv')
