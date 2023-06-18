@@ -1,8 +1,10 @@
 from flask import Flask, render_template, send_file
 import os
 import datetime
+from flask_cors import CORS
 
 app = Flask(__name__, template_folder='template')
+CORS(app)
 
 
 @app.route('/data/arduino/remote_sensor.csv')
