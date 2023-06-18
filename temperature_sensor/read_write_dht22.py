@@ -44,10 +44,7 @@ def write_pandas(temperature_value, humidity_value, ddest):
 
 if __name__ == "__main__":
     # Usage
-    local_ip = "192.168.1.148"  # Replace with your local IP address
-    local_ip2 = "192.168.1.225"  # Replace with your local IP address
-    ddest = os.path.expanduser('~/data/arduino/remote_sensor.csv')
-    ddest2 = os.path.expanduser('~/data/arduino/remote_sensor2.csv')
+
     url = f"http://{local_ip}/"
     url2 = f"http://{local_ip2}/"
     page_content = get_local_page_content(url)

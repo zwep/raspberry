@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CSV Data Visualization</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <canvas id="chart"></canvas>
+  <script>
+    // Parse CSV data and visualize as graphs
+    function visualizeCSV(csvData) {
+      // Split the CSV data into rows
+      const rows = csvData.split('\n');
+
+      // Extract the column headers
+      const headers = rows[0].split(',');
+
+      // Initialize data arrays
+      const datasets = [];
+      for (let i = 1; i < headers.length; i++) {
+        datasets.push({ label: headers[i], data: [] });
+      }
+
+      // Parse the data rows
+      for (let i = 1; i < rows.length; i++) {
+        const rowData = rows[i].split(',');
+
+        for (let j = 1; j < rowData.length; j++) {
+          datasets[j - 1].data.push(parseFloat(rowData[j]));
+        }
+      }
+
+      // Create chart using Chart.js
+      const ctx = document.getElementById('chart').getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: datasets[0].data.map((_, index) => String(index + 1)),
+          datasets: datasets,
+        },
+        options: {
+          responsive: true,
+          scales: {
+            x: { display: true, title: { display: true, text: 'X-axis' } },
+            y: { display: true, title: { display: true, text: 'Y-axis' } },
+          },
+        },
+      });
+    }
+
+    // Read and process the CSV file
+    function handleFileSelect(event) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+
+      reader.onload = function(event) {
+        const csvData = event.target.result;
+        visualizeCSV(csvData);
+      };
+
+      reader.readAsText(file);
+    }
+
+    // Attach event listener to file input
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = '.csv';
+    fileInput.addEventListener('change', handleFileSelect);
+    document.body.appendChild(fileInput);
+  </script>
+</body>
+</html>
