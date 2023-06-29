@@ -22,7 +22,8 @@
       }
 
       // Parse the data rows
-      for (let i = 1; i < rows.length; i++) {
+      const starting_num = parseInt(0.8 * rows.length);
+      for (let i = starting_num; i < rows.length; i++) {
         const rowData = rows[i].split(',');
 
         for (let j = 1; j < rowData.length; j++) {
